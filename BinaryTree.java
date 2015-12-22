@@ -12,7 +12,7 @@ to as its left child and its right child.
 @version 12/9/15
 */
 
-public class BinaryTree<E>
+public class BinaryTree<E> implements Iterable<E>
 {
 	protected E value; //value that each individual tree contains
 	protected BinaryTree<E> left; //the tree contained in the left space of the individual BinaryTree
@@ -132,7 +132,7 @@ public class BinaryTree<E>
 		{
 			if(this.left().height() > this.left().height()) //want to find the path of maximum length so you only want to take the bigger one 
 			{
-				return 1 + this.left().height(); Every level you go up you have ot add one to the total count
+				return 1 + this.left().height(); //Every level you go up you have ot add one to the total count
 			}
 			else
 			{
@@ -235,7 +235,10 @@ public class BinaryTree<E>
 	*/
 	public String toString()
 	{
-		for(	
+		for(int y: o)
+		{
+			System.out.println(
+		}	
 		
 	}
 	
@@ -249,8 +252,8 @@ public class BinaryTree<E>
 		BinaryTree<Integer> f = new BinaryTree<Integer>(13);
 		BinaryTree<Integer> g = new BinaryTree<Integer>(16);
 		BinaryTree<Integer> h = new BinaryTree<Integer>(19);
-		BinaryTree<Integer> i = new BinaryTree<Integer>(2,null,b);
-		BinaryTree<Integer> j = new BinaryTree<Integer>(8,c, null);
+		BinaryTree<Integer> i = new BinaryTree<Integer>(2,a,b);
+		BinaryTree<Integer> j = new BinaryTree<Integer>(8,c,d);
 		BinaryTree<Integer> k = new BinaryTree<Integer>(12,e,f);
 		BinaryTree<Integer> l = new BinaryTree<Integer>(18,g,h);
 		BinaryTree<Integer> m = new BinaryTree<Integer>(5,i,j);
@@ -261,18 +264,235 @@ public class BinaryTree<E>
 		System.out.println(j.height());
 		System.out.println(m.isFull());
 		System.out.println(o.isBalanced());
+		
+		for(int z: o)
+		{
+			System.out.println(z);
+		}
 			
 	}
 	
 	//Iterators
 	/**
-	
-	@param
-	@return
+	Creates and returns an iterator for a BinaryTree 
+	@return Iterator<E>
+	*/
 	
 	public Iterator<E> iterator()
 	{
 		return new InOrderIterator(this);
 	}
-	*/
+}
+
+import java.util.NoSuchElementException;
+/**
+@author Yanni Angelides
+@version 10/30/15 
+*/
+
+import java.util.Iterator;
+import java.lang.Iterable;
+
+public class InOrderIterator<E> implements Iterator<E>
+{
+		private Vector<E> vector = new Vector<E>();
+		private int curr;
+		
+		public InOrderIterator(BinaryTree<E> tree)
+		{	
+			curr = 0;
+			makeVector(tree);
+		}
+		
+		/**
+		This is a helper method that turns the tree into a Vector. The Vector contains the values of the different trees in the order of the specified iterator.
+		*/
+		public void makeVector(BinaryTree<E> t) 
+		{
+			if(t.isLeaf())
+			{
+				vector.add(t.value()); //want to add the value of the tree to the vector because you have reached the bottom of a tree
+				return;
+			}
+			else
+			{
+				if(t.left() != null)
+				{
+					makeVector(t.left()); //call your self iteratively to go down the left side
+				}
+				vector.add(t.value());
+				if(t.right() != null)
+				{
+					makeVector(t.right());
+				}
+			}
+		}
+		/**
+		Once the BinaryTree is turned into a Vector you can treat this as a Vector iterator. This is a method from the Iterator Interface that returns the next object in the Vector	
+		@return E the next object of type E in the Vector
+		*/
+		public E next()
+		{
+			if (hasNext() == false)
+			{
+				throw new NoSuchElementException();
+			}
+			else
+			{
+				curr++;
+				return (vector.get(curr-1));
+			}
+			
+		}
+		
+		/**
+		@return boolean determining whether or not there is another object in the Vector
+		*/
+		public boolean hasNext()
+		{
+			return (curr < vector.size());
+		}
+		
+}
+
+import java.util.NoSuchElementException;
+/**
+@author Yanni Angelides
+@version 10/30/15 
+*/
+
+import java.util.Iterator;
+import java.lang.Iterable;
+
+public class PreOrderIterator<E> implements Iterator<E>
+{
+		private Vector<E> vector = new Vector<E>();
+		private int curr;
+		
+		public PreOrderIterator(BinaryTree<E> tree)
+		{	
+			curr = 0;
+			makeVector(tree);
+		}
+		
+		/**
+		This is a helper method that turns the tree into a Vector. The Vector contains the values of the different trees in the order of the specified iterator.
+		*/
+		public void makeVector(BinaryTree<E> t) 
+		{
+			if(t.isLeaf())
+			{
+				vector.add(t.value()); //want to add the value of the tree to the vector because you have reached the bottom of a tree
+				return;
+			}
+			else
+			{
+				vector.add(t.value());
+				if(t.left() != null)
+				{
+					makeVector(t.left()); //call your self iteratively to go down the left side
+				}
+				if(t.right() != null)
+				{
+					makeVector(t.right());
+				}
+			}
+		}
+		/**
+		Once the BinaryTree is turned into a Vector you can treat this as a Vector iterator. This is a method from the Iterator Interface that returns the next object in the Vector	
+		@return E the next object of type E in the Vector
+		*/
+		public E next()
+		{
+			if (hasNext() == false)
+			{
+				throw new NoSuchElementException();
+			}
+			else
+			{
+				curr++;
+				return (vector.get(curr-1));
+			}
+			
+		}
+		
+		/**
+		@return boolean determining whether or not there is another object in the Vector
+		*/
+		public boolean hasNext()
+		{
+			return (curr < vector.size());
+		}
+		
+}
+
+import java.util.NoSuchElementException;
+/**
+@author Yanni Angelides
+@version 10/30/15 
+*/
+
+import java.util.Iterator;
+import java.lang.Iterable;
+
+public class PostOrderIterator<E> implements Iterator<E>
+{
+		private Vector<E> vector = new Vector<E>();
+		private int curr;
+		
+		public PostOrderIterator(BinaryTree<E> tree)
+		{	
+			curr = 0;
+			makeVector(tree);
+		}
+		
+		/**
+		This is a helper method that turns the tree into a Vector. The Vector contains the values of the different trees in the order of the specified iterator.
+		*/
+		public void makeVector(BinaryTree<E> t) 
+		{
+			if(t.isLeaf())
+			{
+				vector.add(t.value()); //want to add the value of the tree to the vector because you have reached the bottom of a tree
+				return;
+			}
+			else
+			{
+				if(t.left() != null)
+				{
+					makeVector(t.left()); //call your self iteratively to go down the left side
+				}
+				if(t.right() != null)
+				{
+					makeVector(t.right());
+				}
+				vector.add(t.value());
+			}
+		}
+		/**
+		Once the BinaryTree is turned into a Vector you can treat this as a Vector iterator. This is a method from the Iterator Interface that returns the next object in the Vector	
+		@return E the next object of type E in the Vector
+		*/
+		public E next()
+		{
+			if (hasNext() == false)
+			{
+				throw new NoSuchElementException();
+			}
+			else
+			{
+				curr++;
+				return (vector.get(curr-1));
+			}
+			
+		}
+		
+		/**
+		@return boolean determining whether or not there is another object in the Vector
+		*/
+		public boolean hasNext()
+		{
+			return (curr < vector.size());
+		}
+		
 }
