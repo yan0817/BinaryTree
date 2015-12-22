@@ -235,11 +235,11 @@ public class BinaryTree<E> implements Iterable<E>
 	*/
 	public String toString()
 	{
-		for(int y: o)
+		String str = "";
+		for(int z: )
 		{
-			System.out.println(
-		}	
-		
+			str+= z;
+		}
 	}
 	
 	public static void main(String [] args)
