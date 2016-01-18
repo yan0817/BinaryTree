@@ -546,16 +546,20 @@ public class BST <E extends Comparable<E>>
 	}
 	
 	//BinaryTree<E> find(E)
-	public E find(E item)
+	public BinaryTree<E> find(E item, BinaryTree<E> curr)
 	{
-		for (E i: root)
+		if(item.compareTo(curr.value()) == 0)
 		{
-			if(i.compareTo(item) == 0)
-			{
-				return i;
-			}
+			return curr;
 		}
-		return null;
+		if(item.compareTo(curr.value()) < 0 && curr.left() != null)
+		{
+			return find(item, curr.left());
+		}
+		else
+		{
+			return find(item, curr.right());
+		}
 	}
 	
 	//String toString()
