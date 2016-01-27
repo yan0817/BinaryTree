@@ -49,7 +49,7 @@ public class InOrderIterator<E> implements Iterator<E>
 		{
 			if (hasNext() == false)
 			{
-			  System.out.println("The is no next element in the tree");
+			  	System.out.println("There is no next element in the tree");
 				throw new NoSuchElementException();
 			}
 			else
