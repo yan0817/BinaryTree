@@ -9,13 +9,13 @@ import java.lang.Iterable;
 
 public class PostOrderIterator<E> implements Iterator<E>
 {
-		private Vector<E> vector = new Vector<E>();
-		private int curr;
+		private Vector<E> vector = new Vector<E>(); //The Vector that makeVector method transfers the BinaryTree into
+		private int curr; //place holder so that the iterator knows where it is in the Vector
 		
 		public PostOrderIterator(BinaryTree<E> tree)
 		{	
 			curr = 0;
-			makeVector(tree);
+			makeVector(tree); //Inputs the tree into a vector format
 		}
 		
 		/**
