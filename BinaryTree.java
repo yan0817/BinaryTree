@@ -220,12 +220,7 @@ public class BinaryTree<E> implements Iterable<E>
 		else
 		{
 			return false;
-		}
-	//if heights differ by one then left complete right full
-	//if heights equal left full and right complete
-	//if leaf return true
-	//if right null return false
-	//if left leaf and right null return true 
+		} 
 
 	}
 	
@@ -233,17 +228,42 @@ public class BinaryTree<E> implements Iterable<E>
 	Returns a String representation of the BinaryTree
 	@return String of BinaryTree organized with parenthesis
 	*/
+	
 	public String toString()
 	{
-		String str = "";
-		for(int z: )
+		if (this.isLeaf())
 		{
-			str+= z;
+			return value().toString(); 
 		}
+		if(left == null)
+		{
+			return value().toString() + " (" + right.toString() + ", NUll)"; //Print the null so that I know there is a space there but no value in that space
+		}
+		if(right == null)
+		{
+			return value().toString() + "(NULL, " + left.toString() + ")"; //only want to keep iterating down the left side of the tree when right is null
+		}
+		else
+		{
+			return value.toString() + " (" + left.toString() + "  " + right.toString() + ")"; //if both right and left are BinaryTrees then you have to call toString on both of them again to keep iterating through the tree
+		}
+	}
+	
+	
+	//Iterators
+	/**
+	Creates and returns an iterator for a BinaryTree 
+	@return Iterator<E>
+	*/
+	
+	public Iterator<E> iterator()
+	{
+		return new InOrderIterator(this);
 	}
 	
 	public static void main(String [] args)
 	{
+		
 		BinaryTree<Integer> a = new BinaryTree<Integer>(1);
 		BinaryTree<Integer> b = new BinaryTree<Integer>(3);
 		BinaryTree<Integer> c = new BinaryTree<Integer>(7);
@@ -259,6 +279,7 @@ public class BinaryTree<E> implements Iterable<E>
 		BinaryTree<Integer> m = new BinaryTree<Integer>(5,i,j);
 		BinaryTree<Integer> n = new BinaryTree<Integer>(15,k,l);
 		BinaryTree<Integer> o = new BinaryTree<Integer>(10,m,n);
+		System.out.println(o.toString());
 		
 		System.out.println(o.size());
 		System.out.println(j.height());
@@ -271,6 +292,7 @@ public class BinaryTree<E> implements Iterable<E>
 		}
 			
 	}
+}
 	
 	//Iterators
 	/**
