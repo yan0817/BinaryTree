@@ -15,7 +15,7 @@ public class PreOrderIterator<E> implements Iterator<E>
 		public PreOrderIterator(BinaryTree<E> tree)
 		{	
 			curr = 0;
-			makeVector(tree); //tree that is being iterated through
+			makeVector(tree); //Inputs the tree into a vector format
 		}
 		
 		/**
